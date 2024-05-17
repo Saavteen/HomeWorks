@@ -28,7 +28,6 @@ void function(int ammountOfNumbers)
 		std::cout << "negative : " << negative << "\n";
 		std::cout << "zero : " << zero << "\n";
 	}
-	return 0;
 }
 
 int main()
