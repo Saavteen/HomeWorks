@@ -5,21 +5,58 @@
 #include <cstdlib>
 #include <cctype>
 
+int dayOfYear = 1;
+int currentData = 1;
+bool currentDay = false;
 
-/*void getWordOfTheDay()
+void getWordOfTheDay(const char* fileName)
 {
+    currentDay = true;
     std::time_t t = std::time(0);
     std::tm now;
     if (localtime_s(&now, &t) != 0)
     {
         std::cout << "Failed to get local time" << std::endl;
-        return "";
+        return;
     }
 
-    int dayOfYear = now.tm_yday;
-    
+    dayOfYear = now.tm_yday;
+
+    std::fstream file;
+    file.open(fileName, std::ios::out);
+
+    currentData = dayOfYear;
+    if (!file)
+    {
+        std::cout << "eror missing file\n";
+    }
+    else
+    {
+        file << currentData;
+        file.close();
+    }
+
 }
-*/
+
+bool isNewDay(const char* fileName) {
+    std::ifstream file(fileName);
+    if (!file) 
+    {
+        return true; 
+    }
+
+    int lastRecordedDay;
+    file >> lastRecordedDay;
+    file.close();
+
+    std::time_t t = std::time(0);
+    std::tm now;
+    localtime_s(&now, &t);
+
+    dayOfYear = now.tm_yday;
+    return dayOfYear != lastRecordedDay;
+}
+
 void readFile(const char* fileName, std::string& mysteryWord,const int maxWord)
 {
     std::fstream file;
@@ -29,6 +66,37 @@ void readFile(const char* fileName, std::string& mysteryWord,const int maxWord)
         std::cout << "Eror file not found";
         return;
     }
+    else if (currentDay==true)
+    {
+        if (isNewDay("current_data.txt"))
+        {
+            std::fstream file;
+            file.open(fileName, std::ios::in);
+            if (!file) 
+            {
+                std::cout << "Error: file not found\n";
+                return;
+            }
+            
+            std::string word;
+            int count = 0;
+            int linesToRead = dayOfYear < 31 ? dayOfYear : dayOfYear / 31;
+
+            for (int j = 0; j < linesToRead; j++) {
+                if (!getline(file, word)) break;
+            }
+
+            mysteryWord = word;
+            file.close();
+            getWordOfTheDay("current_data.txt"); // Записати поточний день у файл
+        }
+        else 
+        {
+            std::cout << "come back tomorrow";
+            file.close();
+            return;
+        }
+    } 
     else
     {
         std::string word;
@@ -92,7 +160,7 @@ void compareWords(std::string& yourWord, const std::string& mysteryWord, std::st
 
 int main()
 {
-    int maxTries = 5;
+    int maxTries = 4;
     int choice;
     const int maxWords = 50;
 
@@ -118,8 +186,9 @@ int main()
             compareWords(yourWord, mysteryWord, currentWord, maxTries);
             break;
         case 2:
-            //to do getWordOfDay
-            readFile("data_base.txt", mysteryWord, maxWords);
+            getWordOfTheDay("current_data.txt");
+            readFile("data_base_day_word.txt", mysteryWord, maxWords);
+            compareWords(yourWord, mysteryWord, currentWord, maxTries);
             break;
         case 0:
             std::cout << "Exiting..." << std::endl;
