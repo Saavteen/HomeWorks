@@ -1,9 +1,53 @@
-
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <ctime>
+#include <cstdlib>
 #include <cctype>
 
-void compareWords(std::string& yourWord, const std::string& mysteryWord, std::string& currentWord,int maxTries)
+
+/*void getWordOfTheDay()
+{
+    std::time_t t = std::time(0);
+    std::tm now;
+    if (localtime_s(&now, &t) != 0)
+    {
+        std::cout << "Failed to get local time" << std::endl;
+        return "";
+    }
+
+    int dayOfYear = now.tm_yday;
+    
+}
+*/
+void readFile(const char* fileName, std::string& mysteryWord,const int maxWord)
+{
+    std::fstream file;
+    file.open(fileName, std::ios::in);
+    if (!file)
+    {
+        std::cout << "Eror file not found";
+        return;
+    }
+    else
+    {
+        std::string word;
+        int count = 0;
+
+        std::srand(static_cast<unsigned int>(std::time(0)));
+        int randomNumber = std::rand() % maxWord + 1;
+
+        for (int i = 0 ; i < randomNumber;i++)
+        {
+            getline(file, word);
+        }
+        mysteryWord = word;
+        //std::cout << mysteryWord;
+        file.close();
+    }
+}
+
+void compareWords(std::string& yourWord, const std::string& mysteryWord, std::string& currentWord, int maxTries)
 {
     for (int tries = 0; tries <= maxTries; tries++)
     {
@@ -12,7 +56,7 @@ void compareWords(std::string& yourWord, const std::string& mysteryWord, std::st
         std::cout << "Result : ";
         if (yourWord == mysteryWord)
         {
-            std::cout << "you win !!!\n used tries " << tries;
+            std::cout << "you win !!!\nused tries " << tries<<std::endl;
             return;
         }
 
@@ -36,7 +80,7 @@ void compareWords(std::string& yourWord, const std::string& mysteryWord, std::st
                         break;
                     }
                 }
-                if (!found)                {
+                if (!found) {
                     std::cout << "*";
                 }
             }
@@ -48,15 +92,45 @@ void compareWords(std::string& yourWord, const std::string& mysteryWord, std::st
 
 int main()
 {
-    std::string mysteryWord = "chair";
-    std::string yourWord,currentWord="*****";
     int maxTries = 5;
+    int choice;
+    const int maxWords = 50;
 
-    std::cout << "Let's play"<<std::endl;
+    std::string mysteryWord;
+    std::string yourWord; 
+    std::string currentWord = "*****";
 
-    compareWords(yourWord, mysteryWord, currentWord, maxTries);
+    std::cout << "Let's play" << std::endl;
+
+    do 
+    {
+        std::cout << "\nMenu:" << std::endl;
+        std::cout << "1. Option 1" << std::endl;
+        std::cout << "2. Option 2" << std::endl;
+        std::cout << "0. Exit" << std::endl;
+        std::cout << "Enter your choice: ";
+        std::cin >> choice;
+
+        switch (choice) 
+        {
+        case 1:
+            readFile("data_base.txt", mysteryWord, maxWords);
+            compareWords(yourWord, mysteryWord, currentWord, maxTries);
+            break;
+        case 2:
+            //to do getWordOfDay
+            readFile("data_base.txt", mysteryWord, maxWords);
+            break;
+        case 0:
+            std::cout << "Exiting..." << std::endl;
+            break;
+        default:
+            std::cout << "Invalid choice. Please try again." << std::endl;
+            break;
+        }
+    } 
+    while (choice != 0);
+
+    return 0;
 }
-
-
-
-
+   
