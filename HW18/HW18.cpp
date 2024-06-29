@@ -1,173 +1,56 @@
-﻿
-#include<iostream>
+﻿#include <iostream>
 #include <string>
 
 const int TABLES_COUNT = 10;
-const int MENU_ITEMS_COUNT = 4;
-
-enum class DrinkType {
-    Coffee,
-    Tea
-};
-
-enum class CoffeeType {
-    Americano,
-    Latte,
-    Espresso,
-    Cappuccino
-};
-
-enum class TeaType {
-    Black,
-    Green
-};
-
-enum class DrinkSize {
-    Small,
-    Medium,
-    Large,
-    ExtraLarge
-};
-
 
 class Drink {
 public:
     std::string name;
     double price;
-    DrinkType type;
 
-    Drink(const std::string& name, double price, DrinkType type)
-        : name(name), price(price), type(type) {}
+    Drink(const std::string& name, double price) : name(name), price(price) {}
+    virtual ~Drink() = default;
 };
 
-class CoffeeDrink : public Drink {
+class Coffee : public Drink {
 public:
-    CoffeeType coffeeType;
-
-    CoffeeDrink(CoffeeType type, DrinkSize size)
-        : Drink(getCoffeeName(type, size), getCoffeePrice(type, size), DrinkType::Coffee), coffeeType(type) {}
-
-private:
-    static std::string getCoffeeName(CoffeeType type, DrinkSize size) {
-        std::string sizeStr = getSizeString(size);
-        switch (type) {
-        case CoffeeType::Americano:
-            return "Americano" + sizeStr;
-        case CoffeeType::Latte:
-            return "Latte" + sizeStr;
-        case CoffeeType::Espresso:
-            return "Espresso";
-        case CoffeeType::Cappuccino:
-            return "Cappuccino" + sizeStr;
-        default:
-            return "Unknown";
-        }
-    }
-
-    static double getCoffeePrice(CoffeeType type, DrinkSize size) {
-        switch (type) {
-        case CoffeeType::Americano:
-            return 35.0; // Example prices
-        case CoffeeType::Latte:
-            return getSizePrice(size, 50.0, 60.0, 70.0, 80.0);
-        case CoffeeType::Espresso:
-            return 30.0;
-        case CoffeeType::Cappuccino:
-            return getSizePrice(size, 45.0, 55.0, 65.0, 75.0);
-        default:
-            return 0.0;
-        }
-    }
-
-    static std::string getSizeString(DrinkSize size) {
-        switch (size) {
-        case DrinkSize::Small:
-            return " (S)";
-        case DrinkSize::Medium:
-            return " (M)";
-        case DrinkSize::Large:
-            return " (L)";
-        case DrinkSize::ExtraLarge:
-            return " (XL)";
-        default:
-            return "";
-        }
-    }
-
-    static double getSizePrice(DrinkSize size, double smallPrice, double mediumPrice, double largePrice, double extraLargePrice) {
-        switch (size) {
-        case DrinkSize::Small:
-            return smallPrice;
-        case DrinkSize::Medium:
-            return mediumPrice;
-        case DrinkSize::Large:
-            return largePrice;
-        case DrinkSize::ExtraLarge:
-            return extraLargePrice;
-        default:
-            return 0.0;
-        }
-    }
+    Coffee(const std::string& name, double price) : Drink(name, price) {}
 };
 
-class TeaDrink : public Drink {
+class Tea : public Drink {
 public:
-    TeaType teaType;
-
-    TeaDrink(TeaType type, DrinkSize size)
-        : Drink(getTeaName(type, size), getTeaPrice(type, size), DrinkType::Tea), teaType(type) {}
-
-private:
-    static std::string getTeaName(TeaType type, DrinkSize size) {
-        std::string sizeStr = getSizeString(size);
-        switch (type) {
-        case TeaType::Black:
-            return "Black Tea" + sizeStr;
-        case TeaType::Green:
-            return "Green Tea" + sizeStr;
-        default:
-            return "Unknown";
-        }
-    }
-
-    static double getTeaPrice(TeaType type, DrinkSize size) {
-        switch (type) {
-        case TeaType::Black:
-            return getSizePrice(size, 20.0, 25.0, 30.0, 35.0);
-        case TeaType::Green:
-            return getSizePrice(size, 25.0, 30.0, 35.0, 40.0);
-        default:
-            return 0.0;
-        }
-    }
-
-    static std::string getSizeString(DrinkSize size) {
-        // Implementation similar to CoffeeDrink
-    }
-
-    static double getSizePrice(DrinkSize size, double smallPrice, double mediumPrice, double largePrice, double extraLargePrice) {
-        // Implementation similar to CoffeeDrink
-    }
+    Tea(const std::string& name, double price) : Drink(name, price) {}
 };
-//class Coffee
-//{
-//public:
-//    std::string name;
-//    double price;
-//
-//    Coffee()
-//    {
-//        name = "";
-//        price = 0.0;
-//    }
-//
-//    Coffee(const std::string& name, double price)
-//    {
-//        this->name = name;
-//        this->price = price;
-//    }
-//};
 
+class Americano : public Coffee {
+public:
+    Americano(const std::string& size) : Coffee("Americano " + size, 35.0) {}
+};
+
+class Latte : public Coffee {
+public:
+    Latte(const std::string& size) : Coffee("Latte " + size, size == "M" ? 50.0 : size == "L" ? 60.0 : 70.0) {}
+};
+
+class Espresso : public Coffee {
+public:
+    Espresso() : Coffee("Espresso", 30.0) {}
+};
+
+class Cappuccino : public Coffee {
+public:
+    Cappuccino(const std::string& size) : Coffee("Cappuccino " + size, size == "M" ? 45.0 : 55.0) {}
+};
+
+class BlackTea : public Tea {
+public:
+    BlackTea(const std::string& size) : Tea("Black Tea " + size, size == "M" ? 20.0 : size == "L" ? 25.0 : 30.0) {}
+};
+
+class GreenTea : public Tea {
+public:
+    GreenTea(const std::string& size) : Tea("Green Tea " + size, size == "M" ? 25.0 : size == "L" ? 30.0 : 35.0) {}
+};
 
 class CoffeeShop {
 private:
@@ -176,36 +59,27 @@ private:
     Drink* m_Orders[TABLES_COUNT];
 
 public:
-
-    CoffeeShop(const std::string& name)
-    {
-        m_Name = name;
-        for (int i = 0; i < TABLES_COUNT; ++i)
-        {
+    CoffeeShop(const std::string& name) : m_Name(name) {
+        for (int i = 0; i < TABLES_COUNT; ++i) {
             m_Tables[i] = false;
             m_Orders[i] = nullptr;
         }
     }
 
-    bool isTableFree(int tableNumber) const
-    {
-        if (tableNumber < 0 || tableNumber >= TABLES_COUNT)
-        {
+    bool isTableFree(int tableNumber) const {
+        if (tableNumber < 0 || tableNumber >= TABLES_COUNT) {
             std::cerr << "Invalid table number." << std::endl;
             return false;
         }
         return !m_Tables[tableNumber];
     }
 
-    bool occupyTable(int tableNumber)
-    {
-        if (tableNumber < 0 || tableNumber >= TABLES_COUNT)
-        {
+    bool occupyTable(int tableNumber) {
+        if (tableNumber < 0 || tableNumber >= TABLES_COUNT) {
             std::cerr << "Invalid table number." << std::endl;
             return false;
         }
-        if (m_Tables[tableNumber])
-        {
+        if (m_Tables[tableNumber]) {
             std::cerr << "Table is already occupied." << std::endl;
             return false;
         }
@@ -213,15 +87,12 @@ public:
         return true;
     }
 
-    bool freeTable(int tableNumber)
-    {
-        if (tableNumber < 0 || tableNumber >= TABLES_COUNT)
-        {
+    bool freeTable(int tableNumber) {
+        if (tableNumber < 0 || tableNumber >= TABLES_COUNT) {
             std::cerr << "Invalid table number." << std::endl;
             return false;
         }
-        if (!m_Tables[tableNumber])
-        {
+        if (!m_Tables[tableNumber]) {
             std::cerr << "Table is already free." << std::endl;
             return false;
         }
@@ -231,100 +102,89 @@ public:
         return true;
     }
 
-    bool addOrder(int tableNumber, const Drink& coffee)
-    {
-        if (tableNumber < 0 || tableNumber >= TABLES_COUNT)
-        {
+    bool addOrder(int tableNumber, Drink* drink) {
+        if (tableNumber < 0 || tableNumber >= TABLES_COUNT) {
             std::cerr << "Invalid table number." << std::endl;
             return false;
         }
-        if (!m_Tables[tableNumber])
-        {
+        if (!m_Tables[tableNumber]) {
             std::cerr << "Table is free, please occupy it first." << std::endl;
             return false;
         }
-        if (m_Orders[tableNumber] != nullptr)
-        {
+        if (m_Orders[tableNumber] != nullptr) {
             std::cerr << "Table already has an order." << std::endl;
             return false;
         }
-        m_Orders[tableNumber] = new Drink(coffee);
+        m_Orders[tableNumber] = drink;
         return true;
     }
 
-    void printInfo() const
-    {
+    void printInfo() const {
         std::cout << "Shop name: " << m_Name << std::endl;
-        for (int i = 0; i < TABLES_COUNT; ++i)
-        {
+        for (int i = 0; i < TABLES_COUNT; ++i) {
             std::cout << "Table " << i << ": " << (m_Tables[i] ? "Occupied" : "Free");
-            if (m_Orders[i] != nullptr)
-            {
+            if (m_Orders[i] != nullptr) {
                 std::cout << ", Order: " << m_Orders[i]->name << " - " << m_Orders[i]->price << " UAH";
             }
             std::cout << std::endl;
         }
     }
 
-    ~CoffeeShop()
-    {
-        for (int i = 0; i < TABLES_COUNT; ++i)
-        {
+    ~CoffeeShop() {
+        for (int i = 0; i < TABLES_COUNT; ++i) {
             delete m_Orders[i];
         }
     }
 
-    int takePlace()
-    {
-        for (int i = 0; i < TABLES_COUNT; ++i)
-        {
-            if (!m_Tables[i])
-            {
-                m_Tables[i] = true;
-                return i;
+    void order(int tableNumber) {
+        std::cout << "Choose drink type (1 - Coffee, 2 - Tea): ";
+        int drinkChoice;
+        std::cin >> drinkChoice;
+
+        std::string size;
+        if (drinkChoice == 1) {
+            std::cout << "Choose coffee type (1 - Americano, 2 - Latte, 3 - Espresso, 4 - Cappuccino): ";
+            int coffeeChoice;
+            std::cin >> coffeeChoice;
+
+            if (coffeeChoice == 2 || coffeeChoice == 4 || coffeeChoice == 1) {
+                std::cout << "Choose size (M, L, XL): ";
+                std::cin >> size;
+            }
+
+            switch (coffeeChoice) {
+            case 1: addOrder(tableNumber, new Americano(size)); break;
+            case 2: addOrder(tableNumber, new Latte(size)); break;
+            case 3: addOrder(tableNumber, new Espresso()); break;
+            case 4: addOrder(tableNumber, new Cappuccino(size)); break;
+            default: std::cerr << "Invalid choice." << std::endl; return;
             }
         }
-        return -1;
-    }
+        else if (drinkChoice == 2) {
+            std::cout << "Choose tea type (1 - Black, 2 - Green): ";
+            int teaChoice;
+            std::cin >> teaChoice;
 
-    void order(int tableNumber)
-    {
-        Drink menu[MENU_ITEMS_COUNT] = {
-        CoffeeDrink(CoffeeType::Latte, DrinkSize::Medium),
-        CoffeeDrink(CoffeeType::Espresso, DrinkSize::Medium),
-        CoffeeDrink(CoffeeType::Cappuccino, DrinkSize::Medium),
-        CoffeeDrink(CoffeeType::Americano, DrinkSize::Medium)
-        };
+            std::cout << "Choose size (M, L, XL): ";
+            std::cin >> size;
 
-
-        std::cout << "Drink menu:" << std::endl;
-        for (int i = 0; i < MENU_ITEMS_COUNT; ++i)
-        {
-            std::cout << i + 1 << ". " << menu[i].name << " - " << menu[i].price << " UAH" << std::endl;
+            switch (teaChoice) {
+            case 1: addOrder(tableNumber, new BlackTea(size)); break;
+            case 2: addOrder(tableNumber, new GreenTea(size)); break;
+            default: std::cerr << "Invalid choice." << std::endl; return;
+            }
         }
-
-        std::cout << "Enter the drink number: ";
-        int choice;
-        std::cin >> choice;
-
-        if (choice < 1 || choice > MENU_ITEMS_COUNT)
-        {
+        else {
             std::cerr << "Invalid choice." << std::endl;
-            return;
         }
-
-        addOrder(tableNumber, menu[choice - 1]);
     }
 
-    bool prepare(int tableNumber)
-    {
-        if (tableNumber < 0 || tableNumber >= TABLES_COUNT)
-        {
+    bool prepare(int tableNumber) {
+        if (tableNumber < 0 || tableNumber >= TABLES_COUNT) {
             std::cerr << "Invalid table number." << std::endl;
             return false;
         }
-        if (m_Orders[tableNumber] == nullptr)
-        {
+        if (m_Orders[tableNumber] == nullptr) {
             std::cerr << "Table has not placed an order yet." << std::endl;
             return false;
         }
@@ -333,15 +193,12 @@ public:
         return true;
     }
 
-    bool getReceipt(int tableNumber)
-    {
-        if (tableNumber < 0 || tableNumber >= TABLES_COUNT)
-        {
+    bool getReceipt(int tableNumber) {
+        if (tableNumber < 0 || tableNumber >= TABLES_COUNT) {
             std::cerr << "Invalid table number." << std::endl;
             return false;
         }
-        if (m_Orders[tableNumber] == nullptr)
-        {
+        if (m_Orders[tableNumber] == nullptr) {
             std::cerr << "Order does not exist." << std::endl;
             return false;
         }
@@ -350,93 +207,44 @@ public:
         freeTable(tableNumber);
         return true;
     }
-
-    bool addOrder(int tableNumber, DrinkType drinkType, CoffeeType coffeeType, TeaType teaType, DrinkSize size)
-    {
-        if (tableNumber < 0 || tableNumber >= TABLES_COUNT)
-        {
-            std::cerr << "Invalid table number." << std::endl;
-            return false;
-        }
-        if (!m_Tables[tableNumber])
-        {
-            std::cerr << "Table is free, please occupy it first." << std::endl;
-            return false;
-        }
-        if (m_Orders[tableNumber] != nullptr)
-        {
-            std::cerr << "Table already has an order." << std::endl;
-            return false;
-        }
-        m_Orders[tableNumber] = createDrink(drinkType, coffeeType, teaType, size);
-        return true;
-    }
-
-    void order(int tableNumber)
-    {
-        DrinkType type;
-        std::cout << "Choose drink type (1 - Coffee, 2 - Tea): ";
-        int drinkChoice;
-        std::cin >> drinkChoice;
-
-        if (drinkChoice == 1) {
-            CoffeeType coffeeType;
-            std::cout << "Choose coffee type (1 - Americano, 2 - Latte, 3 - Espresso, 4 - Cappuccino): ";
-            int coffeeChoice;
-            std::cin >> coffeeChoice;
-
-            // Введіть обробку вибору розміру напою
-
-            addOrder(tableNumber, DrinkType::Coffee, coffeeType, TeaType::Black, DrinkSize::Medium);
-        }
-        else if (drinkChoice == 2) {
-            TeaType teaType;
-            std::cout << "Choose tea type (1 - Black, 2 - Green): ";
-            int teaChoice;
-            std::cin >> teaChoice;
-
-            // Введіть обробку вибору розміру напою
-
-            addOrder(tableNumber, DrinkType::Tea, CoffeeType::Espresso, teaType, DrinkSize::Medium);
-        }
-        else {
-            std::cerr << "Invalid choice." << std::endl;
-        }
-    }
-
-    Drink* createDrink(DrinkType drinkType, CoffeeType coffeeType, TeaType teaType, DrinkSize size) {
-        switch (drinkType) {
-        case DrinkType::Coffee:
-            return new CoffeeDrink(coffeeType, size);
-        case DrinkType::Tea:
-            return new TeaDrink(teaType, size);
-        default:
-            return nullptr;
-        }
-    }
 };
 
-
-
-
-int main()
-{
+int main() {
     CoffeeShop myCoffeeShop("My Coffee Shop");
+    int choice;
 
-    int tableNumber = myCoffeeShop.takePlace();
-    if (tableNumber != -1)
-    {
-        std::cout << "Occupied table number " << tableNumber << std::endl;
-        myCoffeeShop.order(tableNumber);
-        myCoffeeShop.prepare(tableNumber);
-        myCoffeeShop.getReceipt(tableNumber);
-    }
-    else
-    {
-        std::cout << "No free tables." << std::endl;
-    }
+    do {
+        std::cout << "\n1. Occupy table\n2. Order drink\n3. Prepare order\n4. Get receipt\n5. Print info\n6. Exit\nChoose an option: ";
+        std::cin >> choice;
 
-    myCoffeeShop.printInfo();
+        if (choice == 1) {
+            std::cout << "Enter table number to occupy (0-" << TABLES_COUNT - 1 << "): ";
+            int tableNumber;
+            std::cin >> tableNumber;
+            myCoffeeShop.occupyTable(tableNumber);
+        }
+        else if (choice >= 2 && choice <= 4) {
+            std::cout << "Enter table number (0-" << TABLES_COUNT - 1 << "): ";
+            int tableNumber;
+            std::cin >> tableNumber;
+
+            if (choice == 2) {
+                myCoffeeShop.order(tableNumber);
+            }
+            else if (choice == 3) {
+                myCoffeeShop.prepare(tableNumber);
+            }
+            else if (choice == 4) {
+                myCoffeeShop.getReceipt(tableNumber);
+            }
+        }
+        else if (choice == 5) {
+            myCoffeeShop.printInfo();
+        }
+        else if (choice != 6) {
+            std::cerr << "Invalid choice." << std::endl;
+        }
+    } while (choice != 6);
 
     return 0;
 }
