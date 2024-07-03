@@ -3,6 +3,7 @@
 
 #include "Monster.h"
 #include "Runaway.h"
+#include "DeckGenerator.h"
 
 MonsterDeck::MonsterDeck()
 {
@@ -27,6 +28,6 @@ Monster* MonsterDeck::generateMonster() const
 	//or unless ALL cards were generated from database to the game - in this case 
 	//make ALL cards available again
 
-	const int choice = std::rand() % m_monstersDatabase.size();
-	return m_monstersDatabase[choice];
+
+	return generateRandomElement(m_monstersDatabase);
 }

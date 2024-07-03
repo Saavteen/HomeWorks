@@ -2,6 +2,7 @@
 #include "ModifierDeck.h"
 
 #include "Modifier.h"
+#include "DeckGenerator.h"
 
 ModifierDeck::ModifierDeck()
 {
@@ -35,6 +36,5 @@ Modifier* ModifierDeck::generateModifier() const
 	//or unless ALL cards were generated from database to the game - in this case 
 	//make ALL cards available again
 
-	unsigned int idx = std::rand() % m_modifiersDatabase.size();
-	return m_modifiersDatabase[idx];
+	return generateRandomElement(m_modifiersDatabase);
 }

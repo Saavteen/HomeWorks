@@ -6,10 +6,7 @@
 #include <cstdlib>
 #include <stdexcept>
 
-template <typename T>
+void DeckBase::GenerateCard()
+{
 
-
-	void GenerateDeck(std::vector<int> deck)
-	{
-		unsigned int index = std::rand() % deck;
-	}
+}
