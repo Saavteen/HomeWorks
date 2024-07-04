@@ -30,6 +30,16 @@ const std::vector<Item*>& Munchkin::getItems() const
     return m_items;
 }
 
+void Munchkin::removeModifierFromHand(int idx) 
+{
+    if (idx >= m_modifiers.size() || idx < 0)
+    {
+        return;
+    }
+
+    m_modifiers.erase(m_modifiers.begin() + idx);
+}
+
 Modifier* Munchkin::popModifier(int idx)
 {
     if (idx >= m_modifiers.size() || idx < 0)

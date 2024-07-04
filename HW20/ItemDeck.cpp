@@ -11,10 +11,12 @@ ItemDeck::ItemDeck()
 
 	//TODO: Setup more items of diferent types
 	m_itemsDataBase =
-	{ new Weapon{"The Sword of DOOM", 5},
+	{ 
+	new Weapon{"The Sword of DOOM", 5},
 	new UndeadWeapon{"Stinky knife", 2},
 	new UndeadWeapon{"Holy grenade", 4},
-	new MagicWeapon {"Moon Sword",7} };
+	new MagicWeapon {"Moon Sword",7} 
+	};
 }
 
 ItemDeck::~ItemDeck()

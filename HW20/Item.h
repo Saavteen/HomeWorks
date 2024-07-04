@@ -89,7 +89,7 @@ public:
 
 	virtual std::string getFullInfo() const override
 	{
-		return "\"" + getName() + "\"" + ", power:" + std::to_string(getBasePower()) + ", skills: x2 vs UNDEADS!\n";
+		return "\"" + getName() + "\"" + ", power:" + std::to_string(getBasePower()) + ", skills: x2 vs GODS BUT x0.8 vs HUMANS!\n";
 	}
 };
 //TODO: Add new Item type with unique properties

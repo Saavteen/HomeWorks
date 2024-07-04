@@ -1,5 +1,7 @@
 #include "Runaway.h"
 #include "Munchkin.h"
+#include "ModifierDeck.h"
+#include "DeckGenerator.h"
 
 void Runaway_LevelDowngrade::apply(Munchkin* munchkin)
 {
@@ -12,4 +14,9 @@ void Runaway_LevelDowngradeIf::apply(Munchkin* munchkin)
 	{
 		Runaway_LevelDowngrade::apply(munchkin);
 	}
+}
+
+void Runaway_ModifierFromHandRemoval::apply(Munchkin* munchkin)
+{
+	munchkin->removeModifierFromHand(-m_RandomModifierElement);
 }

@@ -28,7 +28,7 @@ public:
 	void addModifiers(const std::vector<Modifier*>& modifiers) { m_modifiers = modifiers; }
 
 	//TODO: Implement, by index or by pointer or at random
-	void removeModifierFromHand() {}
+	void removeModifierFromHand(int idx) {}
 	void removeItemEquipped() {}
 
 private:
