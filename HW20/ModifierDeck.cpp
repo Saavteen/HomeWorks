@@ -19,7 +19,7 @@ ModifierDeck::ModifierDeck()
 		{new SimpleModifier{1}},
 		{new DoubleMunchkinLevel{}},
 		{new DoubleMunchkinLevel{}},
-		//{new HalvesMonsterLevel{Tribe::Undead}},
+		{new HalvesMonsterLevel{Tribe::Undead}},
 		//{new HalvesMonsterLevel{Tribe::God}}
 	};
 }
