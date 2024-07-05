@@ -35,8 +35,9 @@ void Munchkin::removeModifierFromHand(int idx)
 {
     if (idx >= m_modifiers.size() || idx < 0)
     {
-        return;
+        return ;
     }
+
     m_modifiers.erase(m_modifiers.begin() + idx);
     std::cout << "Modifier at index " << idx << " removed." << std::endl;
 }

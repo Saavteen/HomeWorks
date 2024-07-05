@@ -32,7 +32,6 @@ void Fight::applyModifier(int choice)
 
 void Fight::runawayFlow()
 {
-	std::cout << "RUNAWAY TEST";
 	Runaway* policy = m_monster->getRunawayPolicy();
 	policy->apply(m_munchkin);
 
