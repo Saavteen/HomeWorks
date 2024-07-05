@@ -153,6 +153,7 @@ namespace UI
 
 		if (choice >= handSize || choice <= 0)
 		{
+			std::cout << "NO that CARD";
 			choice = -1;
 		}
 

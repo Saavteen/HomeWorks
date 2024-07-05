@@ -55,11 +55,44 @@ class HalvesMonsterLevel : public Modifier
 public:
 	//#TODO: cut monster's power in 2 if he is of type tribe
 
-	HalvesMonsterLevel(Tribe tribe) {} //implement
-	virtual void apply(Munchkin*, Monster* monster) override {} //implement
+	HalvesMonsterLevel(Tribe tribe) : m_tribe(tribe) {} //implement
 
-	virtual std::string getFullInfo() const override { return ""; } //implement
+	virtual void apply(Munchkin*, Monster* monster) override 
+	{
+		if (monster->getTribe()==Tribe::Human)
+		{
+			m_monsterPowerChange = monster->getLevel() / 2;
+		}
+		else if (monster->getTribe() == Tribe::God)
+		{
+			m_monsterPowerChange = monster->getLevel() / 2;
+		}
+		else
+		{
+			m_monsterPowerChange = 0;
+		}
+	}
+	//implement
+
+	virtual std::string getFullInfo() const override 
+	{ 
+		return "Cuted Monster power in half to Human and Gods";
+	} //implement
+private:
+	Tribe m_tribe;
 };
+
+//class PlayerClassChange : public Modifier
+//{
+//public:
+//
+//	PlayerClassChange(Tribe tribe) : m_tribe(tribe) {}
+//
+//
+//
+//protected:
+//	Tribe m_tribe;
+//};
 
 //#TODO: Add unique modifier munchkin/monster specific
 //Absolutely unique (for example add Munckin class: gnome, elph, human, sex: man, woman, non-binary

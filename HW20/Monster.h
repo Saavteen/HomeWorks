@@ -17,6 +17,8 @@ public:
 
 	Runaway* getRunawayPolicy() const { return m_RunawayPolicy; }
 
+	//Modifier* popModifier(int idx);
+
 	std::string getFullInfo() const { return "Monster " + getName() + ", " + m_RunawayPolicy->getFullInfo(); }
 
 private:
@@ -26,6 +28,7 @@ private:
 
 	//#TODO: Add bonus victory policy for losing to munchkin similar to Runaway policies
 	Runaway* m_RunawayPolicy = nullptr;
+	std::vector<Modifier*> m_modifiers;
 };
 
 //LOSING FLOW:

@@ -1,6 +1,7 @@
 #include "Munchkin.h"
 #include "Item.h"
 #include "Modifier.h"
+#include <iostream>
 
 void Munchkin::updateLevelBy(int levels)
 {
@@ -36,8 +37,8 @@ void Munchkin::removeModifierFromHand(int idx)
     {
         return;
     }
-
     m_modifiers.erase(m_modifiers.begin() + idx);
+    std::cout << "Modifier at index " << idx << " removed." << std::endl;
 }
 
 Modifier* Munchkin::popModifier(int idx)
@@ -51,3 +52,15 @@ Modifier* Munchkin::popModifier(int idx)
     m_modifiers.erase(m_modifiers.begin() + idx);
     return modifier;
 }
+
+//Modifier* Monster::popModifier(int idx)
+//{
+//    if (idx >= m_modifiers.size() || idx < 0)
+//    {
+//        return nullptr;
+//    }
+//
+//    Modifier* modifier = m_modifiers[idx];
+//    m_modifiers.erase(m_modifiers.begin() + idx);
+//    return modifier;
+//}

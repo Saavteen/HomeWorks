@@ -10,10 +10,10 @@ MonsterDeck::MonsterDeck()
 	m_monstersDatabase =
 	{
 		//#TODO: Think of new monsters, feel free to use official Munchkin games as a reference
-		new Monster{"Crazy Joe", 4},
-		new Monster{"Shiva destructor", 20, Tribe::God, new Runaway_LevelDowngradeIf{2, 5}},
-		new Monster{"Vampire", 15, Tribe::Undead, new Runaway_LevelDowngrade{1}},
-		new Monster{"Troll",58,Tribe::Human,new Runaway_ModifierFromHandRemoval{1}}
+		//new Monster{"Crazy Joe", 4},
+		//new Monster{"Shiva destructor", 20, Tribe::God, new Runaway_LevelDowngradeIf{2, 5}},
+		//new Monster{"Vampire", 15, Tribe::Undead, new Runaway_LevelDowngrade{1}},
+		new Monster{"Troll",24,Tribe::Human,new Runaway_ModifierFromHandRemoval{2}}
 	};
 }
 

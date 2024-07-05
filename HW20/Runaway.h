@@ -41,9 +41,10 @@ private:
 class Runaway_ModifierFromHandRemoval : public Runaway
 {
 public:
-	Runaway_ModifierFromHandRemoval(int RandomModifierElement) :m_RandomModifierElement(RandomModifierElement) {}
+	Runaway_ModifierFromHandRemoval(int RandomModifierElement) 
+		:m_RandomModifierElement(RandomModifierElement) {}
 	//#TODO
-	void apply(Munchkin* munchkin) override {}
+	void apply(Munchkin* munchkin) override;
 protected:
 	int m_RandomModifierElement;
 };

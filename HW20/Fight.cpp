@@ -1,5 +1,5 @@
 #include "Fight.h"
-
+#include <iostream>
 #include "Item.h"
 #include "Modifier.h"
 #include "Munchkin.h"
@@ -16,6 +16,7 @@ void Fight::start()
 
 void Fight::applyModifier(int choice)
 {
+	std::cout << "TESSSSSSSSTT"<<std::endl;
 	Modifier* modifier = m_munchkin->popModifier(choice);
 	if (modifier == nullptr)
 	{
@@ -26,11 +27,12 @@ void Fight::applyModifier(int choice)
 	modifier->apply(m_munchkin, m_monster);
 
 	m_MunchkinPower += modifier->getMunchkinModifier();
-	m_monsterPower += modifier->getMonsterModifier();
+	m_monsterPower -= modifier->getMonsterModifier();
 }
 
 void Fight::runawayFlow()
 {
+	std::cout << "RUNAWAY TEST";
 	Runaway* policy = m_monster->getRunawayPolicy();
 	policy->apply(m_munchkin);
 

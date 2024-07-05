@@ -77,7 +77,7 @@ public:
 		switch (monsterTribeModifier)
 		{
 		case Tribe::Human:
-			return m_power * 0.8;
+			return m_power ;
 		case Tribe::Undead:
 		case Tribe::Zombie:
 		case Tribe::God:
@@ -89,7 +89,7 @@ public:
 
 	virtual std::string getFullInfo() const override
 	{
-		return "\"" + getName() + "\"" + ", power:" + std::to_string(getBasePower()) + ", skills: x2 vs GODS BUT x0.8 vs HUMANS!\n";
+		return "\"" + getName() + "\"" + ", power:" + std::to_string(getBasePower()) + ", skills: x2 vs GODS\n";
 	}
 };
 //TODO: Add new Item type with unique properties
