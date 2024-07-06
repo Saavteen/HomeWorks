@@ -16,9 +16,7 @@ public:
 	const std::string& getName() const { return m_name; }
 
 	Runaway* getRunawayPolicy() const { return m_RunawayPolicy; }
-
-	//Modifier* popModifier(int idx);
-
+	
 	std::string getFullInfo() const { return "Monster " + getName() + ", " + m_RunawayPolicy->getFullInfo(); }
 
 private:
