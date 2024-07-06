@@ -29,7 +29,8 @@ public:
 
 	//TODO: Implement, by index or by pointer or at random
 	void removeModifierFromHand(int idx);
-	void removeItemEquipped() {}
+	void removeItemEquipped(int idx);
+	void removeBestItemEquipped();
 
 private:
 	uint m_level = 1;

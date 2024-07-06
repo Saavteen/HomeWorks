@@ -59,8 +59,11 @@ protected:
 class Runaway_ItemEquipedRemoval : public Runaway
 {
 public:
-	//#TODO
-	void apply(Munchkin* munchkin) override {}
+	Runaway_ItemEquipedRemoval(int RandomItemElement):m_RandomItemElement(RandomItemElement){}
+
+	void apply(Munchkin* munchkin) override;
+protected:
+	int m_RandomItemElement;
 };
 
 //Remove equiped item from Outfit with biggest base power
@@ -68,5 +71,8 @@ class Runaway_BiggestBonusCardRemoval : public Runaway
 {
 public:
 	//#TODO
-	void apply(Munchkin* munchkin) override {}
+	Runaway_BiggestBonusCardRemoval(){}
+
+	void apply(Munchkin* munchkin) override;
+protected:
 };

@@ -16,4 +16,4 @@ public:
 
 private:
 	std::vector<Modifier*> m_modifiersDatabase;
-};
+}; 

@@ -45,8 +45,8 @@ void Fight::victoryFlow()
 	//  Add new cards to hand
 	//  Generate new Outfit items???
 	//  Increase Level by 0,1,2
+	m_munchkin->addItem(1);
 	m_munchkin->updateLevelBy(1);
-
 	m_result = FightResult::MunchkinWon;
 }
 

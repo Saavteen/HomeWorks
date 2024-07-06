@@ -151,7 +151,7 @@ namespace UI
 		int choice = -1;
 		std::cin >> choice;
 
-		if (choice >= handSize || choice <= 0)
+		if (choice >= handSize+1 || choice <= 0)
 		{
 			std::cout << "NO that CARD";
 			choice = -1;

@@ -2,6 +2,7 @@
 #include <string>
 #include "Monster.h"
 #include "Munchkin.h"
+#include <iostream>
 
 class Modifier
 {
@@ -57,13 +58,9 @@ public:
 
 	HalvesMonsterLevel(Tribe tribe) : m_tribe(tribe) {} //implement
 
-	virtual void apply(Munchkin*, Monster* monster) override 
+	virtual void apply(Munchkin*, Monster* monster) override
 	{
-		if (monster->getTribe()==Tribe::Human)
-		{
-			m_monsterPowerChange = monster->getLevel() / 2;
-		}
-		else if (monster->getTribe() == Tribe::God)
+		if (monster->getTribe() == m_tribe)
 		{
 			m_monsterPowerChange = monster->getLevel() / 2;
 		}
@@ -74,12 +71,21 @@ public:
 	}
 	//implement
 
-	virtual std::string getFullInfo() const override 
-	{ 
-		return "Cuted Monster power in half to Human and Gods";
+	virtual std::string getFullInfo() const override
+	{
+		return "Cuted Monster power in half for " + tribeToString(m_tribe);
 	} //implement
 private:
 	Tribe m_tribe;
+	std::string tribeToString(Tribe tribe) const
+	{
+		switch (tribe)
+		{
+		case Tribe::Human: return "Humans";
+		case Tribe::God: return "Gods";
+		default: return "Unknown Tribe";
+		}
+	}
 };
 
 //class PlayerClassChange : public Modifier

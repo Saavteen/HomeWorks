@@ -10,7 +10,7 @@ public:
 	~MonsterDeck();
 
 	Monster* generateMonster() const;
-
+	
 private:
 	std::vector<Monster*> m_monstersDatabase;
 };

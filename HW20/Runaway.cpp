@@ -21,3 +21,13 @@ void Runaway_ModifierFromHandRemoval::apply(Munchkin* munchkin)
 {
 	munchkin->removeModifierFromHand(m_RandomModifierElement);
 }
+
+void Runaway_ItemEquipedRemoval::apply(Munchkin* munchkin)
+{
+	munchkin->removeItemEquipped(m_RandomItemElement);
+}
+
+void Runaway_BiggestBonusCardRemoval::apply(Munchkin* munchkin)
+{
+	munchkin->removeBestItemEquipped();
+}
