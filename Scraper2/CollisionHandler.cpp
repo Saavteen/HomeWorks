@@ -7,12 +7,12 @@ void CollisionHandler::handleProjectileCollision(Projectile& projectile, Player&
 {
   if (projectile.getOwnerType() == ProjectileOwner::Enemy && projectile.checkCollision(player.getBounds()))
     {
-      player.setColor(sf::Color::Red);
+      //player.setColor(sf::Color::Red);
 
     }
     else if (projectile.getOwnerType() == ProjectileOwner::Player && projectile.checkCollision(enemy.getBounds()))
     {
-       enemy.setColor(sf::Color::Red);  
+       //enemy.setColor(sf::Color::Red);  
 
     }
 }

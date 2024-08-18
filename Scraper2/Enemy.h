@@ -9,7 +9,7 @@ public:
     void update(float deltaTime);
     void render(sf::RenderWindow& window);
     void shootProjectile(std::vector<Projectile>& projectiles);
- 
+    sf::FloatRect getBounds() const;
 private:
     int m_hp;
     sf::Sprite m_sprite;

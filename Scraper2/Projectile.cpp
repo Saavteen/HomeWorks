@@ -96,6 +96,11 @@ bool Projectile::checkCollision(sf::FloatRect& bounds)
     return m_sprite.getGlobalBounds().intersects(bounds);
 }
 
+ProjectileOwner Projectile::getOwnerType() const
+{
+    return m_ownerType;
+}
+
 sf::FloatRect Projectile::getBounds() const
 {
     return m_sprite.getGlobalBounds();

@@ -10,7 +10,7 @@ public:
 	Player(const char* textureFileName);
 	void update(float deltaTime);
 	void render(sf::RenderWindow& window);
-
+	sf::FloatRect getBounds() const;
 private:
 	void handleMovemenent(float deltaTime);
 	void attack(float deltaTime);

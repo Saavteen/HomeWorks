@@ -11,6 +11,7 @@ public:
     void render(sf::RenderWindow& window);
     bool checkCollision(sf::FloatRect& bounds);
     sf::FloatRect getBounds() const;
+    ProjectileOwner getOwnerType() const;
 
 private:
     sf::Sprite m_sprite;

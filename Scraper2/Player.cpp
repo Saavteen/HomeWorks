@@ -100,3 +100,8 @@ void Player::render(sf::RenderWindow& window)
         projectile.render(window);
     }
 }
+
+sf::FloatRect Player::getBounds() const
+{
+    return m_sprite.getGlobalBounds();
+}

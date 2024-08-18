@@ -73,3 +73,8 @@ void Enemy::shootProjectile(std::vector<Projectile>& projectiles)
         break;
     }
 }
+
+sf::FloatRect Enemy::getBounds() const
+{
+    return m_sprite.getGlobalBounds();
+}
