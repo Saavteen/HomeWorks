@@ -64,12 +64,12 @@ void Enemy::shootProjectile(std::vector<Projectile>& projectiles)
     switch (projectileType)
     {
     case 0:
-        projectiles.push_back(Projectile(startX, startY, -1.0f, ProjectileType::FastAndLarge));
+        projectiles.push_back(Projectile(startX, startY, -1.0f, ProjectileType::FastAndLarge, ProjectileOwner::Enemy));
         break;
     case 1:
-        projectiles.push_back(Projectile(startX, startY, -1.0f, ProjectileType::CosPath));
+        projectiles.push_back(Projectile(startX, startY, -1.0f, ProjectileType::CosPath, ProjectileOwner::Enemy));
     case 2:
-        projectiles.push_back(Projectile(startX, startY, -1.0f, ProjectileType::SpiralPath));
+        projectiles.push_back(Projectile(startX, startY, -1.0f, ProjectileType::SpiralPath,ProjectileOwner::Enemy));
         break;
     }
 }

@@ -66,7 +66,7 @@ void Player::attack(float deltaTime)
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && (currentTime - lastAttackTime >= attackCooldown))
     {
         float direction = (m_sprite.getScale().x > 0) ? -1.0f : 1.0f;
-        projectiles.push_back(Projectile(m_sprite.getPosition().x, m_sprite.getPosition().y, direction, ProjectileType::Normal));
+        projectiles.push_back(Projectile(m_sprite.getPosition().x, m_sprite.getPosition().y, direction, ProjectileType::Normal, ProjectileOwner::Player));
         lastAttackTime = currentTime;
     }
 

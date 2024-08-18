@@ -29,8 +29,8 @@ void Projectile::loadTextures()
 }
 
 
-Projectile::Projectile(float x, float y, float direction, ProjectileType type)
-    : m_speed(500.0f), m_direction(direction), m_type(type), m_initialX(x), m_initialY(y)
+Projectile::Projectile(float x, float y, float direction, ProjectileType type, ProjectileOwner ownerType)
+    : m_speed(500.0f), m_direction(direction), m_type(type), m_initialX(x), m_initialY(y), m_ownerType(ownerType)
 {
     static bool texturesLoaded = false;
     if (!texturesLoaded)
