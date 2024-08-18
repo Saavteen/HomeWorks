@@ -11,6 +11,8 @@ public:
 	void update(float deltaTime);
 	void render(sf::RenderWindow& window);
 	sf::FloatRect getBounds() const;
+	void setColor(const sf::Color& color);
+	std::vector<Projectile>& getProjectiles();
 private:
 	void handleMovemenent(float deltaTime);
 	void attack(float deltaTime);

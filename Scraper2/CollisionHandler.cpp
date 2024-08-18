@@ -2,17 +2,18 @@
 #include "Projectile.h"
 #include "Player.h"
 #include "Enemy.h"
+#include <iostream>
 
 void CollisionHandler::handleProjectileCollision(Projectile& projectile, Player& player, Enemy& enemy)
 {
-  if (projectile.getOwnerType() == ProjectileOwner::Enemy && projectile.checkCollision(player.getBounds()))
+    if (projectile.getOwnerType() == ProjectileOwner::Enemy && projectile.checkCollision(player.getBounds()))
     {
-      //player.setColor(sf::Color::Red);
-
+        std::cout << "sosi xui";
     }
     else if (projectile.getOwnerType() == ProjectileOwner::Player && projectile.checkCollision(enemy.getBounds()))
     {
-       //enemy.setColor(sf::Color::Red);  
-
+        std::cout << "fuck you";
     }
 }
+
+

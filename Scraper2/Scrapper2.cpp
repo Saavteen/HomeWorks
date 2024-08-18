@@ -8,6 +8,10 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "ProjectileType.h"
+#include "CollisionHandler.h"
+
+CollisionHandler collisionHandler;
+
 
 void handleSystemEvents(sf::RenderWindow& window)
 {
@@ -39,6 +43,7 @@ void handleSystemEvents(sf::RenderWindow& window)
 
 int main()
 {
+
     srand(static_cast<unsigned int>(time(0)));
 
     sf::RenderWindow& window = WindowHelper::Instance().GetRenderWindow();
@@ -67,6 +72,12 @@ int main()
 
         player.update(deltaTime);
         boss.update(deltaTime);
+
+        for (auto& projectile : player.getProjectiles()) // Assuming getProjectiles() returns a reference to the projectile list
+        {
+            collisionHandler.handleProjectileCollision(projectile, player, boss);
+        }
+
 
         window.clear();
         window.draw(backgroundSprite);

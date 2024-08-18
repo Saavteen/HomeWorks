@@ -101,6 +101,16 @@ void Player::render(sf::RenderWindow& window)
     }
 }
 
+std::vector<Projectile>& Player::getProjectiles()
+{
+    return projectiles;
+}
+
+
+void Player::setColor(const sf::Color& color)
+{
+    m_sprite.setColor(color);
+}
 sf::FloatRect Player::getBounds() const
 {
     return m_sprite.getGlobalBounds();

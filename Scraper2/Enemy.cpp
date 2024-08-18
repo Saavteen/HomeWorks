@@ -54,7 +54,6 @@ void Enemy::render(sf::RenderWindow& window)
 
 }
 
-
 void Enemy::shootProjectile(std::vector<Projectile>& projectiles)
 {
     float startX = m_sprite.getPosition().x + m_sprite.getGlobalBounds().width / 2;

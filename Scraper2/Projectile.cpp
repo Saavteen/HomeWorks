@@ -91,7 +91,7 @@ void Projectile::render(sf::RenderWindow& window)
     window.draw(m_sprite);
 }
 
-bool Projectile::checkCollision(sf::FloatRect& bounds)
+bool Projectile::checkCollision(const sf::FloatRect& bounds) const
 {
     return m_sprite.getGlobalBounds().intersects(bounds);
 }

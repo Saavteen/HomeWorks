@@ -9,7 +9,7 @@ public:
     Projectile(float x, float y, float direction, ProjectileType type,ProjectileOwner ownerType);
     void update(float deltaTime);
     void render(sf::RenderWindow& window);
-    bool checkCollision(sf::FloatRect& bounds);
+    bool checkCollision(const sf::FloatRect& bounds)const;
     sf::FloatRect getBounds() const;
     ProjectileOwner getOwnerType() const;
 

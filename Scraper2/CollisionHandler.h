@@ -7,5 +7,5 @@
 class CollisionHandler
 {
 public:
-    static void handleProjectileCollision(Projectile& projectile, Player& player, Enemy& enemy);
+    static void handleProjectileCollision( Projectile& projectile,  Player& player, Enemy& enemy);
 };
