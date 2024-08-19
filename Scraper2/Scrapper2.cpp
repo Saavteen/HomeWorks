@@ -21,11 +21,9 @@ void handleSystemEvents(sf::RenderWindow& window, bool& isGameRunning, bool& isG
         switch (event.type)
         {
         case sf::Event::Closed:
-            std::cout << "Closed" << std::endl;
             window.close();
             break;
         case sf::Event::KeyPressed:
-            std::cout << "Escape" << std::endl;
             if (event.key.code == sf::Keyboard::Escape)
             {
                 isGamePaused = !isGamePaused;
@@ -36,14 +34,11 @@ void handleSystemEvents(sf::RenderWindow& window, bool& isGameRunning, bool& isG
             }
             break;
         case sf::Event::MouseButtonPressed:
-            std::cout << "Mouse" << std::endl;
             if (isGamePaused)
             {
-                std::cout << "MouseIf" << std::endl;
                 sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
                 if (menu.getPlayButton().getGlobalBounds().contains(mousePosition.x, mousePosition.y))
                 {
-                    std::cout << "MouseIfTouched" << std::endl;
                     isGamePaused = false;
                 }
                 else if (menu.getExitButton().getGlobalBounds().contains(mousePosition.x, mousePosition.y))

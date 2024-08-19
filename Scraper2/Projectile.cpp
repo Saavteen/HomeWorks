@@ -73,12 +73,9 @@ void Projectile::update(float deltaTime)
     }
     else if (m_type == ProjectileType::SpiralPath)
     {
-        float speedFactor = 5.0f;
-
-        float x = m_initialX + m_direction * m_speed * deltaTime;
-        float y = m_initialY + 50.0f + std::sin(x * 0.05f * speedFactor);
-        m_sprite.setPosition( x, m_initialX + y);
-        m_initialX = x;
+        float x = m_sprite.getPosition().x + m_direction * m_speed * deltaTime;
+        float y = -300.0f * std::cos(x / -300.0f);
+        m_sprite.setPosition(x, m_initialY + y);
     }
     else
     {

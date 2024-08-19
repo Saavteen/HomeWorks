@@ -10,7 +10,6 @@ void CollisionHandler::handleProjectileCollision(Projectile& projectile, Player&
     {
         player.setColor(sf::Color::Red);
         player.takeDamage(enemy.getDamage());
-        std::cout << player.getHP() << std::endl;
         projectile.deactivate();
         player.colorTimer.restart(); 
         player.colorChanged = true;
@@ -19,7 +18,6 @@ void CollisionHandler::handleProjectileCollision(Projectile& projectile, Player&
     {
         enemy.setColor(sf::Color::Red);
         enemy.takeDamage(player.getDamage());
-        std::cout << enemy.getHP()<<std::endl;
         projectile.deactivate();
         enemy.colorTimer.restart(); 
         enemy.colorChanged = true;
