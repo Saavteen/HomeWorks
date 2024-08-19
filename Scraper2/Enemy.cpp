@@ -12,11 +12,27 @@ Enemy::Enemy(const char* textureFileName, float x, float y)
     m_sprite.setTexture(m_texture);
     m_sprite.setPosition(x, y);
     m_sprite.setScale({ 1.5f,1.5f });
+    if (!m_font.loadFromFile("ComicSansMS.ttf")) 
+    {
+        std::cerr << "Error loading font" << std::endl;
+    }
+    m_hpText.setFont(m_font);
+    m_hpText.setCharacterSize(24); // Font size
+    m_hpText.setFillColor(sf::Color::Red);
+    m_hpText.setPosition(10, 40); 
 
+    updateHPText();
 }
 
-void Enemy::update(float deltaTime)
+
+void Enemy::reset()
 {
+    m_hp = 105;
+}
+
+void Enemy::update(float deltaTime, bool isPaused)
+{
+    if (isPaused) return;
     sf::Vector2f position = m_sprite.getPosition();
     position.y += m_direction * m_moveSpeed * deltaTime;
 
@@ -64,6 +80,7 @@ void Enemy::render(sf::RenderWindow& window)
     {
         projectile.render(window);
     }
+    window.draw(m_hpText);
 
 }
 
@@ -108,11 +125,15 @@ int Enemy::getHP() const
     return m_hp;
 }
 
-void Enemy::takeDamage(int damage)
+void Enemy::updateHPText()
 {
+    m_hpText.setString("Boss HP: " + std::to_string(m_hp));
+}
+
+void Enemy::takeDamage(int damage) {
     m_hp -= damage;
     if (m_hp < 0) {
         m_hp = 0;
-        // Dies logic
     }
+    updateHPText();
 }

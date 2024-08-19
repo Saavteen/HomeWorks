@@ -14,7 +14,22 @@ Player::Player(const char* textureFileName)
     }
     m_sprite.setTexture(m_texture);
     m_sprite.setScale({ 0.05f,0.05f });
+    if (!m_font.loadFromFile("ComicSansMS.ttf")) 
+    {
+        std::cerr << "Error loading font" << std::endl;
+    }
+    m_hpText.setFont(m_font);
+    m_hpText.setCharacterSize(24); 
+    m_hpText.setFillColor(sf::Color::White);
+    m_hpText.setPosition(10, 10); 
 
+    updateHPText();
+
+}
+
+void Player::reset()
+{
+    m_hp = 6;
 }
 
 void Player::handleMovemenent(float deltaTime)
@@ -81,9 +96,9 @@ void Player::attack(float deltaTime)
         projectiles.end());
 }
 
-void Player::update(float deltaTime)
+void Player::update(float deltaTime,bool isPaused)
 {
-
+    if (isPaused) return;
     handleMovemenent(deltaTime);
     attack(deltaTime);
     for (auto& projectile : projectiles)
@@ -102,6 +117,7 @@ void Player::update(float deltaTime)
         std::remove_if(projectiles.begin(), projectiles.end(), [](const Projectile& p) { return !p.isActive(); }),
         projectiles.end()
     );
+
 }
 
 void Player::render(sf::RenderWindow& window)
@@ -111,6 +127,7 @@ void Player::render(sf::RenderWindow& window)
     {
         projectile.render(window);
     }
+    window.draw(m_hpText);
 }
 
 std::vector<Projectile>& Player::getProjectiles()
@@ -136,8 +153,17 @@ int Player::getHP() const
 void Player::takeDamage(int damage)
 {
     m_hp -= damage;
-    if (m_hp < 0) {
+    if (m_hp < 0)
+    {
         m_hp = 0;
-        // Dies logic
+        m_sprite.setScale(m_sprite.getScale() / 2.0f);
+        m_sprite.setColor(sf::Color::Transparent);
     }
+    updateHPText();
+
+}
+
+void Player::updateHPText()
+{
+    m_hpText.setString("HP: " + std::to_string(m_hp));
 }

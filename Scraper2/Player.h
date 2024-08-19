@@ -8,7 +8,7 @@ class Player
 {
 public:
 	Player(const char* textureFileName);
-	void update(float deltaTime);
+	void update(float deltaTime ,bool isPaused);
 	void render(sf::RenderWindow& window);
 	sf::FloatRect getBounds() const;
 	void setColor(const sf::Color& color);
@@ -17,9 +17,10 @@ public:
 	void takeDamage(int damage);
 	sf::Clock colorTimer;
 	bool colorChanged = false;
-
+	void reset();
 	int getDamage() const { return m_damage; }
 
+	void updateHPText();
 
 private:
 	void handleMovemenent(float deltaTime);
@@ -34,6 +35,9 @@ private:
 
 
 protected:
+	sf::Font m_font;
+	sf::Text m_hpText;
+
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
 	std::vector<Projectile> projectiles;
