@@ -17,7 +17,7 @@ Enemy::Enemy(const char* textureFileName, float x, float y)
         std::cerr << "Error loading font" << std::endl;
     }
     m_hpText.setFont(m_font);
-    m_hpText.setCharacterSize(24); // Font size
+    m_hpText.setCharacterSize(24); 
     m_hpText.setFillColor(sf::Color::Red);
     m_hpText.setPosition(10, 40); 
 

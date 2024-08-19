@@ -18,7 +18,6 @@ void handleSystemEvents(sf::RenderWindow& window, bool& isGameRunning, bool& isG
     sf::Event event;
     while (window.pollEvent(event))
     {
-        //std::cout << "startEvent" << std::endl;
         switch (event.type)
         {
         case sf::Event::Closed:

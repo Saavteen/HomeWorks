@@ -39,12 +39,12 @@ void Player::handleMovemenent(float deltaTime)
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
     {
         position.x -= m_speed * deltaTime;
-        //m_sprite.setScale(0.05f, 0.05f); // Flip Horizontally
+
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
     {
         position.x += m_speed * deltaTime;
-        m_sprite.setScale(-0.05f, 0.05f); // Normal Orientation
+        m_sprite.setScale(-0.05f, 0.05f);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
     {
