@@ -5,7 +5,7 @@
 #include <iostream>
 
 Player::Player(const char* textureFileName)
-    : attackCooldown(0.3f), lastAttackTime(0.0f), m_hp(3),m_damage(5)
+    : attackCooldown(0.3f), lastAttackTime(0.0f), m_hp(5),m_damage(5)
 
 {
     if (!m_texture.loadFromFile(textureFileName))
@@ -88,8 +88,20 @@ void Player::update(float deltaTime)
     attack(deltaTime);
     for (auto& projectile : projectiles)
     {
-        projectile.update(deltaTime);
+        if (projectile.isActive()) 
+        {
+            projectile.update(deltaTime);
+        }
     }
+    if (colorChanged && colorTimer.getElapsedTime().asSeconds() > 0.3f)
+    {
+        setColor(sf::Color::White);
+        colorChanged = false;
+    }
+    projectiles.erase(
+        std::remove_if(projectiles.begin(), projectiles.end(), [](const Projectile& p) { return !p.isActive(); }),
+        projectiles.end()
+    );
 }
 
 void Player::render(sf::RenderWindow& window)
@@ -106,12 +118,26 @@ std::vector<Projectile>& Player::getProjectiles()
     return projectiles;
 }
 
-
 void Player::setColor(const sf::Color& color)
 {
     m_sprite.setColor(color);
 }
+
 sf::FloatRect Player::getBounds() const
 {
     return m_sprite.getGlobalBounds();
+}
+
+int Player::getHP() const 
+{
+    return m_hp;
+}
+
+void Player::takeDamage(int damage)
+{
+    m_hp -= damage;
+    if (m_hp < 0) {
+        m_hp = 0;
+        // Dies logic
+    }
 }

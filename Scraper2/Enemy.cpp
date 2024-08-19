@@ -40,8 +40,21 @@ void Enemy::update(float deltaTime)
 
     for (auto& projectile : m_projectiles)
     {
-        projectile.update(deltaTime);
+        if (projectile.isActive()) 
+        {
+            projectile.update(deltaTime);
+        }
     }
+    if (colorChanged && colorTimer.getElapsedTime().asSeconds() > 0.3f)
+    {
+        setColor(sf::Color::White);
+        colorChanged = false;
+    }
+    m_projectiles.erase(
+        std::remove_if(m_projectiles.begin(), m_projectiles.end(), [](const Projectile& p) { return !p.isActive(); }),
+        m_projectiles.end()
+    );
+
 }
 
 void Enemy::render(sf::RenderWindow& window)
@@ -73,7 +86,33 @@ void Enemy::shootProjectile(std::vector<Projectile>& projectiles)
     }
 }
 
+
+std::vector<Projectile>& Enemy::getProjectiles()
+{
+    return m_projectiles;
+}
+
+void Enemy::setColor(const sf::Color& color)
+{
+    m_sprite.setColor(color);
+}
+
+
 sf::FloatRect Enemy::getBounds() const
 {
     return m_sprite.getGlobalBounds();
+}
+
+int Enemy::getHP() const
+{
+    return m_hp;
+}
+
+void Enemy::takeDamage(int damage)
+{
+    m_hp -= damage;
+    if (m_hp < 0) {
+        m_hp = 0;
+        // Dies logic
+    }
 }

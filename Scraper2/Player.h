@@ -13,16 +13,25 @@ public:
 	sf::FloatRect getBounds() const;
 	void setColor(const sf::Color& color);
 	std::vector<Projectile>& getProjectiles();
+	int getHP() const;
+	void takeDamage(int damage);
+	sf::Clock colorTimer;
+	bool colorChanged = false;
+
+	int getDamage() const { return m_damage; }
+
+
 private:
 	void handleMovemenent(float deltaTime);
 	void attack(float deltaTime);
 
 private:
+	int m_hp = 5;
+	int m_damage = 5;
 	float m_speed = 1000.0f;
 	float attackCooldown;
 	float lastAttackTime;
-	int m_hp;
-	int m_damage;
+
 
 protected:
 	sf::Texture m_texture;

@@ -105,3 +105,13 @@ sf::FloatRect Projectile::getBounds() const
 {
     return m_sprite.getGlobalBounds();
 }
+
+bool Projectile::isActive() const 
+{
+    return active;
+}
+
+void Projectile::deactivate()
+{
+    active = false;
+}

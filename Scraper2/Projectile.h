@@ -12,8 +12,11 @@ public:
     bool checkCollision(const sf::FloatRect& bounds)const;
     sf::FloatRect getBounds() const;
     ProjectileOwner getOwnerType() const;
+    bool isActive() const;
+    void deactivate();
 
 private:
+    bool active = true;
     sf::Sprite m_sprite;
     static sf::Texture m_normalTexture;
     static sf::Texture m_fastAndLargeTexture;

@@ -10,8 +10,20 @@ public:
     void render(sf::RenderWindow& window);
     void shootProjectile(std::vector<Projectile>& projectiles);
     sf::FloatRect getBounds() const;
+    void setColor(const sf::Color& color);
+    std::vector<Projectile>& getProjectiles();
+
+    int getDamage() const { return m_damage; }
+
+    int getHP() const;
+    void takeDamage(int damage);
+
+    sf::Clock colorTimer;
+    bool colorChanged = false;
+
 private:
-    int m_hp;
+    int m_hp = 100; 
+    int m_damage = 1;
     sf::Sprite m_sprite;
     sf::Texture m_texture;
     float m_shootCooldown;
